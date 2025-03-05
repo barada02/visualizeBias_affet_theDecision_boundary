@@ -9,8 +9,8 @@ st.set_page_config(
     layout="wide"
 )
 
-# Create two columns for the main content
-left_column, right_column = st.columns([1, 3])  # 1:3 ratio for left:right
+# Create two columns for the main content with adjusted ratio
+left_column, right_column = st.columns([1, 2])  # Changed to 1:2 ratio
 
 # Left column - Controls
 with left_column:
@@ -45,9 +45,10 @@ with left_column:
 with right_column:
     st.title("Visualization")
     
-    # Create the visualization
-    fig, ax = plt.subplots(figsize=(10, 8))
-
+    # Create the visualization with smaller figure size
+    fig, ax = plt.subplots(figsize=(8, 6))
+    plt.tight_layout()  # Adjust layout to use space efficiently
+    
     # Plot data points
     ax.scatter(X[y == 0][:, 0], X[y == 0][:, 1], label='Class 0', color='blue', alpha=0.5)
     ax.scatter(X[y == 1][:, 0], X[y == 1][:, 1], label='Class 1', color='red', alpha=0.5)
@@ -60,15 +61,15 @@ with right_column:
     ax.plot(x, y, 'g-', label=f'Decision Boundary\nBias = {bias:.2f}')
     ax.set_xlabel('X1')
     ax.set_ylabel('X2')
-    ax.legend()
+    ax.legend(bbox_to_anchor=(1.02, 1), loc='upper left')
     ax.grid(True, alpha=0.3)
 
     # Keep the plot area fixed
     ax.set_xlim(x_min, x_max)
     ax.set_ylim(X[:, 1].min() - 1, X[:, 1].max() + 1)
 
-    # Display the plot
-    st.pyplot(fig)
+    # Display the plot with custom width
+    st.pyplot(fig, use_container_width=True)
 
 # Interpretation section below the main content
 st.markdown("""
