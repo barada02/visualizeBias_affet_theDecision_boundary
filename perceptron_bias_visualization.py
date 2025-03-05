@@ -4,17 +4,20 @@ import matplotlib.pyplot as plt
 from sklearn.datasets import make_blobs
 
 # Set page config
-st.set_page_config(page_title="Perceptron Decision Boundary Visualization", layout="wide")
+st.set_page_config(
+    page_title="Perceptron Decision Boundary Visualization",
+    layout="wide"
+)
 
-# Create two columns
+# Create two columns for the main content
 left_column, right_column = st.columns([1, 3])  # 1:3 ratio for left:right
 
-# Left column - Controls and explanation
+# Left column - Controls
 with left_column:
-    st.title("Perceptron Decision Boundary with Adjustable Bias")
+    st.title("Controls")
+    
     st.write("""
-    This visualization demonstrates how the bias term affects the decision boundary in a perceptron.
-    Use the slider below to adjust the bias and observe how it shifts the decision boundary.
+    Adjust the bias value using the slider below to see how it affects the decision boundary.
     """)
     
     # Initialize random seed for reproducibility
@@ -35,30 +38,15 @@ with left_column:
         max_value=5.0,
         value=0.0,
         step=0.1,
-        help="Move the slider to change the bias value and see how it affects the decision boundary"
+        help="Move the slider to change the bias value"
     )
-    
-    st.markdown("""
-    ### How to interpret this visualization:
-
-    1. **Data Points**:
-       - Blue dots represent Class 0
-       - Red dots represent Class 1
-
-    2. **Decision Boundary**:
-       - The green line shows where the perceptron makes its decision
-       - Points above the line are classified differently from points below it
-
-    3. **Bias Effect**:
-       - Moving the slider changes the bias value
-       - Watch how the green line shifts up or down as you adjust the bias
-       - This demonstrates how bias allows the decision boundary to move away from the origin
-    """)
 
 # Right column - Visualization
 with right_column:
+    st.title("Visualization")
+    
     # Create the visualization
-    fig, ax = plt.subplots(figsize=(10, 6))
+    fig, ax = plt.subplots(figsize=(10, 8))
 
     # Plot data points
     ax.scatter(X[y == 0][:, 0], X[y == 0][:, 1], label='Class 0', color='blue', alpha=0.5)
@@ -79,5 +67,33 @@ with right_column:
     ax.set_xlim(x_min, x_max)
     ax.set_ylim(X[:, 1].min() - 1, X[:, 1].max() + 1)
 
-    # Display the plot in Streamlit
+    # Display the plot
     st.pyplot(fig)
+
+# Interpretation section below the main content
+st.markdown("""
+---
+## How to Interpret This Visualization
+
+This visualization demonstrates how the bias term affects the decision boundary in a perceptron classifier.
+
+### Key Components
+
+#### 1. Data Points
+- **Blue dots** (Class 0): First group of data points
+- **Red dots** (Class 1): Second group of data points
+- The two classes are clearly separated for better visualization
+
+#### 2. Decision Boundary (Green Line)
+- Represents where the perceptron makes its classification decision
+- Points on different sides of this line are classified into different classes
+- The line's position changes as you adjust the bias
+
+#### 3. Bias Effect
+- **Moving the slider left** (negative bias): Shifts the boundary upward
+- **Moving the slider right** (positive bias): Shifts the boundary downward
+- This demonstrates how bias allows the decision boundary to move away from the origin (0,0)
+
+### Why This Matters
+The bias term gives the perceptron more flexibility in finding the optimal decision boundary. Without bias, the boundary would be forced to pass through the origin, which might not be optimal for separating the classes.
+""")
