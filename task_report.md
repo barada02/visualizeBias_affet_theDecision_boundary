@@ -1,30 +1,48 @@
 # Visualizing Bias Effect on Perceptron Decision Boundary
 
 ## Task Overview
-The task involves creating a visualization to demonstrate how the bias term affects the decision boundary in a perceptron classifier. This visualization is crucial for understanding one of the fundamental concepts in neural networks and machine learning.
+Create an interactive visualization to demonstrate how the bias term affects a perceptron's decision boundary. This visualization serves as an educational tool to understand one of the fundamental concepts in neural networks and machine learning.
 
 ## Problem Statement
-In machine learning, a perceptron's ability to correctly classify data points depends heavily on its decision boundary. While the weights determine the orientation of this boundary, the bias term allows the boundary to shift in space. Without bias, the decision boundary must pass through the origin (0,0), which limits the perceptron's classification capabilities.
+In machine learning, a perceptron's effectiveness in classification tasks heavily depends on its decision boundary. While the weights determine the angle of this boundary, the bias term enables the boundary to shift in space. Without bias, the decision boundary must pass through the origin (0,0), limiting the perceptron's classification capabilities.
 
 ## Approach
 
 ### 1. Data Generation
-- Created synthetic dataset with two distinct classes using sklearn's `make_blobs`
-- Ensured clear separation between classes for better visualization
-- Added controlled randomness for realistic data distribution
+- Used sklearn's `make_blobs` to create synthetic dataset
+- Generated two distinct classes with controlled separation
+- Applied appropriate scaling and positioning for clear visualization
 
-### 2. Visualization Strategy
-- Implemented an interactive matplotlib plot
-- Created a slider interface for real-time bias adjustment
-- Color-coded data points for clear class distinction
-- Added dynamic decision boundary updating
+### 2. Interactive Visualization
+- Implemented using Streamlit for web-based interaction
+- Created a responsive two-column layout:
+  * Left column: Controls (bias slider)
+  * Right column: Dynamic visualization
+- Added real-time updates of the decision boundary
 
-### 3. User Interaction
-- Provided bias range from -5 to 5 for comprehensive exploration
-- Included real-time boundary updates for immediate feedback
-- Added grid and legends for better interpretation
+### 3. User Interface Design
+- Clean, minimal interface focusing on the visualization
+- Intuitive bias slider with appropriate range (-5 to 5)
+- Clear labeling and color coding for classes
+- Informative grid and legend
+
+### 4. Educational Components
+- Comprehensive explanation section
+- Clear documentation of the bias effect
+- Visual demonstration of boundary movement
 
 ## Implementation Benefits
-1. Interactive Learning: Users can directly observe the relationship between bias and decision boundary
-2. Clear Visualization: Distinct color coding and clean layout enhance understanding
-3. Real-time Updates: Immediate feedback helps in grasping the concept quickly
+1. **Interactive Learning**
+   - Real-time visualization of bias effects
+   - Immediate feedback on parameter changes
+   - Hands-on experimentation capability
+
+2. **Clear Visualization**
+   - Distinct class separation
+   - Well-defined decision boundary
+   - Intuitive color coding
+
+3. **Educational Value**
+   - Demonstrates key machine learning concept
+   - Helps build intuition about perceptron behavior
+   - Supports theoretical understanding with visual proof

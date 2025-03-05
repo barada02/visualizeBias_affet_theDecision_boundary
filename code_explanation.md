@@ -2,19 +2,36 @@
 
 ## Code Structure Breakdown
 
-### 1. Dependencies
+### 1. Dependencies and Setup
 ```python
+import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.datasets import make_blobs
-from matplotlib.widgets import Slider
 ```
-- NumPy: For numerical computations
-- Matplotlib: For visualization
-- Scikit-learn: For generating sample data
-- Slider widget: For interactive bias adjustment
+- **Streamlit**: Web application framework
+- **NumPy**: Numerical computations
+- **Matplotlib**: Visualization
+- **Scikit-learn**: Data generation
 
 ### 2. Key Components
+
+#### Page Configuration
+```python
+st.set_page_config(
+    page_title="Perceptron Decision Boundary Visualization",
+    layout="wide"
+)
+```
+- Sets up wide layout for better visualization
+- Configures page title
+
+#### Layout Structure
+```python
+left_column, right_column = st.columns([1, 2])
+```
+- Creates two-column layout
+- 1:2 ratio for controls vs. visualization
 
 #### Data Generation
 ```python
@@ -22,76 +39,83 @@ X, y = make_blobs(n_samples=100, centers=2, cluster_std=1.5, random_state=42)
 X[y == 1] = X[y == 1] + [2, 2]
 ```
 - Creates 100 data points in two clusters
-- Adjusts second class position for better visualization
-
-#### Decision Boundary Plotting
-```python
-def plot_decision_boundary(weights, bias, X, y):
-    # w[0]*x + w[1]*y + b = 0
-    # y = -(w[0]*x + b)/w[1]
-```
-- Implements perceptron's decision function
-- Visualizes boundary as a line in 2D space
+- Adjusts second class position for better separation
 
 #### Interactive Elements
 ```python
-bias_slider = Slider(
-    ax=ax_bias,
-    label='Bias',
-    valmin=-5,
-    valmax=5,
-    valinit=initial_bias,
-    color='green'
+bias = st.slider(
+    'Adjust Bias',
+    min_value=-5.0,
+    max_value=5.0,
+    value=0.0,
+    step=0.1
 )
 ```
-- Creates interactive slider for bias adjustment
-- Range: -5 to 5 for comprehensive exploration
+- Slider for bias adjustment
+- Range: -5 to 5
+- 0.1 step size for fine control
+
+#### Visualization
+```python
+fig, ax = plt.subplots(figsize=(8, 6))
+plt.tight_layout()
+```
+- Creates matplotlib figure
+- Optimizes layout for display
 
 ## Output Analysis
 
 ### Visual Elements
+
 1. **Data Points**
    - Blue dots: Class 0
    - Red dots: Class 1
-   - Clear separation for better understanding
+   - Clear separation between classes
 
 2. **Decision Boundary**
-   - Green line: Represents classification boundary
-   - Updates dynamically with bias changes
-   - Shows direct relationship between bias and boundary position
+   - Green line
+   - Updates dynamically with bias
+   - Shows classification separation
 
-### Benefits of Visualization
+3. **Layout**
+   - Controls on left
+   - Large visualization on right
+   - Interpretation guide below
 
-1. **Educational Value**
-   - Demonstrates abstract concept visually
-   - Shows immediate effect of parameter changes
-   - Helps build intuition about perceptron behavior
+### Interactive Features
 
-2. **Practical Understanding**
-   - Illustrates why bias is necessary
-   - Shows limitations of bias-free models
-   - Demonstrates optimal boundary positioning
+1. **Bias Control**
+   - Real-time updates
+   - Smooth transition
+   - Clear visual feedback
 
-3. **Interactive Learning**
-   - Real-time feedback
-   - Experimentation-based learning
-   - Immediate visualization of concepts
+2. **Plot Elements**
+   - Grid for reference
+   - Legend for clarity
+   - Axis labels for context
+
+## Benefits of Implementation
+
+### 1. Educational Value
+- Clear visualization of bias concept
+- Interactive learning experience
+- Immediate feedback loop
+
+### 2. User Experience
+- Intuitive controls
+- Responsive design
+- Clean interface
+
+### 3. Technical Implementation
+- Efficient code structure
+- Modular components
+- Maintainable design
 
 ## Conclusion
 
-This visualization effectively demonstrates how the bias term influences a perceptron's decision boundary. Key takeaways:
+The implementation successfully demonstrates:
+1. How bias affects decision boundary
+2. The importance of bias in classification
+3. The relationship between parameters and outcomes
 
-1. **Bias Importance**
-   - Enables boundary shifting away from origin
-   - Crucial for proper class separation
-   - Essential for real-world applications
-
-2. **Learning Impact**
-   - Interactive nature enhances understanding
-   - Visual feedback reinforces theoretical concepts
-   - Practical demonstration of mathematical principles
-
-3. **Future Applications**
-   - Foundation for understanding more complex neural networks
-   - Basis for grasping advanced ML concepts
-   - Valuable tool for ML education
+This visualization serves as an effective educational tool for understanding perceptron behavior and the role of bias in machine learning.
